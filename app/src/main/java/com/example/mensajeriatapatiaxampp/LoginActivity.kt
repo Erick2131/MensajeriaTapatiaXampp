@@ -17,6 +17,8 @@ class LoginActivity : AppCompatActivity() {
     private lateinit var passwordEditText: EditText
     private lateinit var loginButton: Button
     private lateinit var exitButton: Button
+    private var Cip : ClassIP = ClassIP()
+    private var ip: String = Cip.ip
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -34,7 +36,8 @@ class LoginActivity : AppCompatActivity() {
             val password = passwordEditText.text.toString()
 
             // Realiza la solicitud HTTP al servidor PHP para iniciar sesión
-            val url = "http://192.168.137.76/login.php"
+            //val url = "http://192.168.1.135/login.php"
+            val url = "http://$ip/login.php"
             val stringRequest = object : StringRequest(
                 Request.Method.POST, url,
                 Response.Listener<String> { response ->

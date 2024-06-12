@@ -20,7 +20,9 @@ import androidx.lifecycle.ViewModelProvider
 import com.android.volley.Request
 import com.android.volley.toolbox.JsonArrayRequest
 import com.android.volley.toolbox.JsonObjectRequest
+import com.android.volley.toolbox.StringRequest
 import com.android.volley.toolbox.Volley
+import com.example.mensajeriatapatiaxampp.ClassIP
 import com.example.mensajeriatapatiaxampp.R
 import com.example.mensajeriatapatiaxampp.databinding.FragmentGalleryBinding
 import org.json.JSONObject
@@ -40,6 +42,8 @@ class GalleryFragment : Fragment() {
     private lateinit var rbPaquete: RadioButton
     private lateinit var contenido: EditText
     private lateinit var enviar: Button
+    private var Cip: ClassIP = ClassIP()
+    private var ip: String = Cip.ip
 
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreateView(
@@ -83,42 +87,16 @@ class GalleryFragment : Fragment() {
         _binding = null
     }
 
-    fun insertarMensaje(idDestinatario: Int, idMensajero: Int, contenido: String, tipo: String, fecha: String) {
-        val url = "http://192.168.1.4/insertar_mensaje.php" // URL del script PHP para insertar mensajes
-
-        val jsonObject = JSONObject().apply {
-            put("idDestinatario", idDestinatario)
-            put("idMensajero", idMensajero)
-            put("contenido", contenido)
-            put("tipo", tipo)
-            put("fecha", fecha)
-        }
-
-        val request = JsonObjectRequest(
-            Request.Method.POST, url, jsonObject,
-            { response ->
-                // Manejar la respuesta exitosa
-                Toast.makeText(context, "Mensaje insertado correctamente", Toast.LENGTH_SHORT).show()
-            },
-            { error ->
-                // Manejar el error
-                Toast.makeText(context, "Error al insertar el mensaje: ${error.message}", Toast.LENGTH_SHORT).show()
-            })
-
-        // Agregar la solicitud a la cola de solicitudes
-        Volley.newRequestQueue(requireContext()).add(request)
-    }
-
-
     fun obtenerDestinatarios() {
-        val url = "http://192.168.137.76/obtener_destinatarios.php"
-
+        //val url = "http://192.168.137.76/obtener_destinatarios.php"
+        val url = "http://$ip/obtener_destinatarios.php"
         val request = JsonArrayRequest(Request.Method.GET, url, null,
             { response ->
                 // Manejar la respuesta exitosa
                 val listaDestinatarios = mutableListOf<String>()
                 for (i in 0 until response.length()) {
                     listaDestinatarios.add(response.getString(i))
+                    System.out.println(response.getString(i))
                 }
                 // Rellenar el spinner con la lista de destinatarios
                 destinatario.adapter = ArrayAdapter(requireContext(), android.R.layout.simple_spinner_item, listaDestinatarios)
@@ -134,15 +112,17 @@ class GalleryFragment : Fragment() {
 
 
     fun obtenerMensajeros() {
-        val url = "http://192.168.1.4/obtener_mensajeros.php" // URL del script PHP para obtener los mensajeros
-
+//        val url = "http://192.168.1.4/obtener_mensajeros.php" // URL del script PHP para obtener los mensajeros
+        val url = "http://$ip/obtener_mensajeros.php"
         val request = JsonArrayRequest(Request.Method.GET, url, null,
             { response ->
                 // Manejar la respuesta exitosa
                 val listaMensajeros = mutableListOf<String>()
                 for (i in 0 until response.length()) {
-                    val mensajero = response.getJSONObject(i)
-                    listaMensajeros.add(mensajero.getString("empresa"))
+                    //val mensajero = response.getJSONObject(i)
+                    val empresa = response.getString(i)
+                    //listaMensajeros.add(mensajero.getString("empresa"))
+                    listaMensajeros.add(empresa)
                 }
                 // Rellenar el spinner con la lista de mensajeros
                 mensajero.adapter = ArrayAdapter(requireContext(), android.R.layout.simple_spinner_item, listaMensajeros)
@@ -154,6 +134,41 @@ class GalleryFragment : Fragment() {
 
         // Agregar la solicitud a la cola de solicitudes
         Volley.newRequestQueue(requireContext()).add(request)
+    }
+
+    fun insertarMensaje(idDestinatario: Int, idMensajero: Int, contenido: String, tipo: String, fecha: String) {
+        val url = "http://$ip/insertar_mensaje.php"
+
+        val stringRequest = object : StringRequest(
+            Request.Method.POST, url,
+            { response ->
+                // Manejar la respuesta exitosa
+                Toast.makeText(context, "Mensaje insertado correctamente", Toast.LENGTH_SHORT).show()
+            },
+            { error ->
+                // Manejar el error
+                error.printStackTrace()
+                if (error.networkResponse != null && error.networkResponse.data != null) {
+                    val errorMsg = String(error.networkResponse.data)
+                    Toast.makeText(context, "Error al insertar el mensaje: $errorMsg", Toast.LENGTH_SHORT).show()
+                } else {
+                    Toast.makeText(context, "Error al insertar el mensaje: ${error.message}", Toast.LENGTH_SHORT).show()
+                }
+            }) {
+
+            override fun getParams(): Map<String, String> {
+                val params = HashMap<String, String>()
+                params["idDestinatario"] = idDestinatario.toString()
+                params["idMensajero"] = idMensajero.toString()
+                params["contenido"] = contenido
+                params["tipo"] = tipo
+                params["fecha"] = fecha
+                return params
+            }
+        }
+
+        // Agregar la solicitud a la cola de solicitudes
+        Volley.newRequestQueue(requireContext()).add(stringRequest)
     }
 
 }
