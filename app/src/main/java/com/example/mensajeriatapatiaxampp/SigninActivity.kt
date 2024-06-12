@@ -20,7 +20,8 @@ class SigninActivity : AppCompatActivity() {
     private lateinit var passwordEditText: EditText
     private lateinit var backButton: Button
     private lateinit var registerButton: Button
-
+    private var Cip : ClassIP = ClassIP()
+    private var ip: String = Cip.ip
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_signin)
@@ -53,8 +54,8 @@ class SigninActivity : AppCompatActivity() {
     // Método para insertar un usuario en la base de datos
     private fun insertUser(name: String, age: Int, email: String, password: String) {
         // URL del archivo PHP que maneja la inserción en la base de datos
-        val url = "http://192.168.137.76/insert_user.php"
-
+        //val url = "http://192.168.137.76/insert_user.php"
+        val url = "http://$ip/insert_user.php"
         // Crea una solicitud de tipo StringRequest
         val stringRequest = object : StringRequest(
             Request.Method.POST,
