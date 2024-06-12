@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".SigninActivity">
+
+    <TextView
+        android:id="@+id/titleSignin"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="61dp"
+        android:layout_marginEnd="39dp"
+        android:layout_marginBottom="14dp"
+        android:text="@string/titleSignin"
+        android:textColor="@color/titles"
+        android:textSize="34sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/subtitleSignin"
+        app:layout_constraintEnd_toEndOf="@+id/subtitleSignin"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/subtitleSignin"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="25dp"
+        android:text="@string/subtitleSignin"
+        android:textColor="@color/subtitles"
+        android:textStyle="italic"
+        app:layout_constraintBottom_toTopOf="@+id/iconSign"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/titleSignin" />
+
+    <EditText
+        android:id="@+id/edtSignName"
+        android:layout_width="280dp"
+        android:layout_height="70dp"
+        android:layout_marginStart="65dp"
+        android:layout_marginEnd="65dp"
+        android:layout_marginBottom="35dp"
+        android:background="@drawable/custom_edtbox"
+        android:ems="10"
+        android:hint="@string/promtpName"
+        android:inputType="text"
+        android:paddingLeft="10dp"
+        android:textColor="@color/plainText"
+        app:layout_constraintBottom_toTopOf="@+id/edtSignAge"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/iconSign" />
+
+    <EditText
+        android:id="@+id/edtSignAge"
+        android:layout_width="280dp"
+        android:layout_height="70dp"
+        android:layout_marginStart="65dp"
+        android:layout_marginEnd="65dp"
+        android:layout_marginBottom="29dp"
+        android:background="@drawable/custom_edtbox"
+        android:ems="10"
+        android:hint="@string/promtpAge"
+        android:inputType="number"
+        android:paddingLeft="10dp"
+        android:textColor="@color/plainText"
+        app:layout_constraintBottom_toTopOf="@+id/edtSignEmail"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/edtSignName" />
+
+    <EditText
+        android:id="@+id/edtSignEmail"
+        android:layout_width="280dp"
+        android:layout_height="70dp"
+        android:layout_marginStart="65dp"
+        android:layout_marginEnd="65dp"
+        android:layout_marginBottom="35dp"
+        android:background="@drawable/custom_edtbox"
+        android:ems="10"
+        android:hint="@string/promtpEmail"
+        android:inputType="text"
+        android:paddingLeft="10dp"
+        android:textColor="@color/plainText"
+        app:layout_constraintBottom_toTopOf="@+id/edtSignPassword"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/edtSignAge" />
+
+    <EditText
+        android:id="@+id/edtSignPassword"
+        android:layout_width="280dp"
+        android:layout_height="70dp"
+        android:layout_marginStart="65dp"
+        android:layout_marginEnd="65dp"
+        android:layout_marginBottom="68dp"
+        android:background="@drawable/custom_edtbox"
+        android:ems="10"
+        android:hint="@string/promptPassword"
+        android:inputType="textPassword"
+        android:paddingLeft="10dp"
+        android:textColor="@color/plainText"
+        app:layout_constraintBottom_toTopOf="@+id/btnSignRegister"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/edtSignEmail" />
+
+    <Button
+        android:id="@+id/btnSignRegister"
+        android:layout_width="120dp"
+        android:layout_height="60dp"
+        android:layout_marginEnd="66dp"
+        android:layout_marginBottom="116dp"
+        android:text="@string/lblBtnRegister"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/btnSignBack"
+        app:layout_constraintTop_toBottomOf="@+id/edtSignPassword" />
+
+    <Button
+        android:id="@+id/btnSignBack"
+        android:layout_width="120dp"
+        android:layout_height="60dp"
+        android:layout_marginStart="65dp"
+        android:layout_marginEnd="40dp"
+        android:text="@string/lblBtnBack"
+        app:layout_constraintBaseline_toBaselineOf="@+id/btnSignRegister"
+        app:layout_constraintEnd_toStartOf="@+id/btnSignRegister"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <ImageView
+        android:id="@+id/iconSign"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_marginBottom="27dp"
+        app:layout_constraintBottom_toTopOf="@+id/edtSignName"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/subtitleSignin"
+        app:srcCompat="@drawable/ic_signin" />
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.slideshow.SlideshowFragment">
+
+    <TextView
+        android:id="@+id/txtTitulo2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="146dp"
+        android:layout_marginTop="32dp"
+        android:layout_marginEnd="146dp"
+        android:layout_marginBottom="12dp"
+        android:text="@string/menu_slideshow"
+        app:layout_constraintBottom_toTopOf="@+id/txtRellenarDestinatario"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/txtRellenarDestinatario"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="58dp"
+        android:layout_marginTop="12dp"
+        android:layout_marginEnd="58dp"
+        android:layout_marginBottom="170dp"
+        android:text="@string/campos2"
+        app:layout_constraintBottom_toTopOf="@+id/edtNombreDes"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txtTitulo2" />
+
+    <EditText
+        android:id="@+id/edtNombreDes"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="84dp"
+        android:layout_marginEnd="117dp"
+        android:layout_marginBottom="36dp"
+        android:ems="10"
+        android:hint="@string/nombreD"
+        android:inputType="text"
+        app:layout_constraintBottom_toTopOf="@+id/edtDireccionDes"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txtRellenarDestinatario" />
+
+    <EditText
+        android:id="@+id/edtDireccionDes"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="84dp"
+        android:layout_marginTop="33dp"
+        android:layout_marginEnd="117dp"
+        android:layout_marginBottom="169dp"
+        android:ems="10"
+        android:hint="@string/direccionD"
+        android:inputType="text"
+        app:layout_constraintBottom_toTopOf="@+id/btnAgregarD"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/edtNombreDes" />
+
+    <Button
+        android:id="@+id/btnAgregarD"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="158dp"
+        android:layout_marginEnd="159dp"
+        android:layout_marginBottom="158dp"
+        android:text="@string/agregarD"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/edtDireccionDes" />
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,0 +1,89 @@
+<resources>
+    <!-- Strings principales -->
+    <string name="app_name">MensajeriaTapatia</string>
+    <string name="lblBtnBack">Regresar</string>
+    <string name="lblBtnSend">Enviar</string>
+    <string name="lblBtnAdd">Agrega</string>
+
+    <string name="title_activity_menu">MenuActivity</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="nav_header_title">Mensajería Tapatía</string>
+    <string name="nav_header_subtitle">Menú principal</string>
+    <string name="nav_header_desc">Navigation header</string>
+    <string name="action_settings">Log out</string>
+
+    <!-- Strings de la bienvenida -->
+    <string name="MainTitle">Mensajeria Tapatia</string>
+
+    <!-- Log in -->
+    <string name="lblTxtWelcome">Bienvenido</string>
+    <string name="lblWelSubtitle">Ingresa tus credenciales para iniciar</string>
+    <string name="lblEdtUser">Email</string>
+    <string name="lblEdtPassword">Contraseña</string>
+    <string name="lblBtnLogin">Entrar</string>
+    <string name="lblBtnExit">Salir</string>
+    <string name="lblTxtSignin">¿Eres nuevo? Registrate ahora</string>
+
+    <!-- Sign in -->
+    <string name="titleSignin">Registrate</string>
+    <string name="subtitleSignin">Completa todos los campos y registrate</string>
+    <string name="promtpName">Nombre</string>
+    <string name="promtpEmail">Correo</string>
+    <string name="promtpAge">Edad</string>
+    <string name="promptPassword">Contraseña</string>
+    <string name="lblBtnRegister">Registrar</string>
+
+    <!-- Menú -->
+    <string name="menu_home">Inicio</string>
+    <string name="menu_mensaje">Nuevo Mensaje</string>
+    <string name="menu_destinatario">Nuevo Destinatario</string>
+    <string name="menu_gallery">Nuevo Mensaje</string>
+    <string name="menu_slideshow">Nuevo destinatario</string>
+    <string name="menu_mensajero">Nuevo Mensajero</string>
+    <string name="menu_busqueda">Busqueda</string>
+    <string name="menu_historial">Historial</string>
+
+    <!-- Fragment Home -->
+    <string name="saludo">Hola</string>
+    <string name="usuario">Variable!</string>
+    <string name="nosotros">Sobre Nosotros</string>
+    <string name="mensaje">Bienvenido a Mensajeria Tapatía, tu solución de mensajería rápida y confiable. Simplificamos el proceso de envío de mensajes y paquetes para que puedas comunicarte con tus seres queridos y clientes de manera eficiente. ¡Descubre como mejorar tu experiencia de mensajería con nosotros!</string>
+
+    <!-- Fragment mensaje -->
+    <string name="campos">Llena los campos para agregar un mensaje</string>
+    <string name="lblTxtDestinatarios">Destinatarios</string>
+    <string name="lblTxtMensajero">Mensajero</string>
+    <string name="lblTxtDirección">Dirección</string>
+    <string name="lblTipoMensaje">Tipo</string>
+    <string name="rbMensaje">Mensaje</string>
+    <string name="rbPaquete">Paquete</string>
+    <string name="lblTxtContenido">Contenido</string>
+
+    <!-- Fragment destinatario -->
+    <string name="campos2">Llenar los campos para agregar un destinatario</string>
+    <string name="nombreD">Nombre Destinitario</string>
+    <string name="direccionD">Direccion</string>
+    <string name="agregarD">Agregar</string>
+
+    <!-- Fragment mensajero -->
+    <string name="lblMjrSubtitulo">Llena los campos para agregar un mensajero</string>
+    <string name="lblMjrEmpresa">Empresa</string>
+    <string name="lblMjrVehiculo">Vehiculo</string>
+    <string name="lblMjrValoracion">Calificación</string>
+
+    <!-- Fragment historial-->
+    <string name="infoH">Mensajes que has mandando</string>
+    <string name="Mensaje1">Mensaje 1</string>
+    <string name="mensaje2">Mensaje 2</string>
+    <string name="mensaje3">Mesaje 3</string>
+    <string name="mensaje4">Mensaje 4</string>
+    <string name="mensaje5">Mensaje 5</string>
+
+    <!-- Fragment busqueda -->
+    <string name="infoBusqueda">Agrega el id del mensaje que quieres saber los detalles</string>
+    <string name="lblBusId">Id</string>
+    <string name="lblBusBuscar">Buscar</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+</resources>

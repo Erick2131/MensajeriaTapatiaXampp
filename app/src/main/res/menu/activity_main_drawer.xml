@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn="navigation_view">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_home"
+            android:icon="@drawable/ic_home"
+            android:title="@string/menu_home" />
+        <item
+            android:id="@+id/nav_gallery"
+            android:icon="@drawable/ic_message"
+            android:title="@string/menu_gallery" />
+        <item
+            android:id="@+id/nav_slideshow"
+            android:icon="@drawable/ic_ship"
+            android:title="@string/menu_slideshow" />
+        <item
+            android:id="@+id/nav_mensajero"
+            android:icon="@drawable/ic_mailer"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:title="@string/menu_mensajero" />
+        <item
+            android:id="@+id/nav_busqueda"
+            android:icon="@drawable/ic_calendar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:title="@string/menu_busqueda" />
+        <item
+            android:id="@+id/nav_historial"
+            android:icon="@drawable/ic_history"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:title="@string/menu_historial" />
+        <item
+            android:id="@+id/separator"
+            android:title=""
+            android:enabled="false"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#000000" />
+    </group>
+</menu>
