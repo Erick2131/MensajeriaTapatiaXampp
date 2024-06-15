@@ -5,56 +5,89 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
+import android.widget.EditText
+import android.widget.TextView
+import com.example.mensajeriatapatiaxampp.ClassIP
 import com.example.mensajeriatapatiaxampp.R
+import com.example.mensajeriatapatiaxampp.databinding.FragmentBusquedaBinding
+import com.example.mensajeriatapatiaxampp.databinding.FragmentMensajeroBinding
+import android.widget.Toast
+import com.android.volley.Request
+import com.android.volley.toolbox.JsonArrayRequest
+import com.android.volley.toolbox.Volley
+import org.json.JSONException
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
+class FragmentBusqueda : Fragment() {
 
-/**
- * A simple [Fragment] subclass.
- * Use the [fragment_busqueda.newInstance] factory method to
- * create an instance of this fragment.
- */
-class fragment_busqueda : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
+    private var _binding: FragmentBusquedaBinding? = null
+    private val binding get() = _binding!!
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
-        }
-    }
+    private var Cip: ClassIP = ClassIP()
+    private var ip: String = Cip.ip
+
+    private lateinit var editTextId: EditText
+    private lateinit var resultado: TextView
+    private lateinit var buttonBuscar: Button
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_busqueda, container, false)
+        _binding = FragmentBusquedaBinding.inflate(inflater, container, false)
+        val view = binding.root
+
+        editTextId = view.findViewById(R.id.edtBusBusqueda)
+        resultado = view.findViewById(R.id.txtBusResult)
+        buttonBuscar = view.findViewById(R.id.btnBusBuscar)
+
+        buttonBuscar.setOnClickListener {
+            val idMensaje = editTextId.text.toString().trim()
+
+            if (idMensaje.isNotEmpty()) {
+                buscarMensaje(idMensaje)
+            } else {
+                Toast.makeText(requireContext(), "Ingrese un ID de mensaje válido", Toast.LENGTH_SHORT).show()
+            }
+        }
+
+        return view
     }
 
-    companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment fragment_busqueda.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            fragment_busqueda().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
+    private fun buscarMensaje(idMensaje: String) {
+        val url = "http://$ip/buscar_mensaje.php?idMensaje=$idMensaje"
+
+        val request = JsonArrayRequest(Request.Method.GET, url, null,
+            { response ->
+                try {
+                    // Verificar si se encontraron resultados
+                    if (response.length() > 0) {
+                        val mensaje = response.getJSONObject(0)
+                        val contenido = mensaje.getString("contenido")
+                        val tipo = mensaje.getString("tipo")
+                        val fecha = mensaje.getString("fecha")
+
+                        val mensajeString = "Contenido: $contenido\nTipo: $tipo\nFecha: $fecha"
+                        resultado.text = mensajeString
+                    } else {
+                        resultado.text = "Mensaje no encontrado"
+                    }
+                } catch (e: JSONException) {
+                    e.printStackTrace()
+                    Toast.makeText(requireContext(), "Error al procesar la respuesta del servidor", Toast.LENGTH_SHORT).show()
                 }
-            }
+            },
+            { error ->
+                error.printStackTrace()
+                Toast.makeText(requireContext(), "Error al buscar el mensaje: ${error.message}", Toast.LENGTH_SHORT).show()
+            })
+
+        // Agregar la solicitud a la cola de solicitudes
+        Volley.newRequestQueue(requireContext()).add(request)
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 }

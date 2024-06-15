@@ -7,33 +7,34 @@
     android:layout_height="wrap_content">
 
     <!-- res/layout/item_mensaje.xml -->
-    <LinearLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
+    <!-- item_mensaje.xml -->
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:padding="16dp">
 
         <TextView
-            android:id="@+id/textId"
-            android:layout_width="wrap_content"
+            android:id="@+id/txtContenido"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="ID: " />
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:layout_marginBottom="4dp"/>
 
         <TextView
-            android:id="@+id/textContenido"
-            android:layout_width="wrap_content"
+            android:id="@+id/txtTipo"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Contenido: " />
+            android:textSize="16sp"
+            android:layout_marginBottom="4dp"/>
 
         <TextView
-            android:id="@+id/textFecha"
-            android:layout_width="wrap_content"
+            android:id="@+id/txtFecha"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Fecha: " />
-
-        <!-- ... otras vistas que desees mostrar -->
-
+            android:textSize="14sp"/>
     </LinearLayout>
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
