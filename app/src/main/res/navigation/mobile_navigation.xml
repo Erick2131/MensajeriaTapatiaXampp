@@ -26,13 +26,13 @@
 
     <fragment
         android:id="@+id/nav_busqueda"
-        android:name="com.example.mensajeriatapatia.fragment_busqueda"
+        android:name="com.example.mensajeriatapatia.FragmentBusqueda"
         android:label="@string/menu_busqueda"
         tools:layout="@layout/fragment_busqueda" />
 
     <fragment
         android:id="@+id/nav_historial"
-        android:name="com.example.mensajeriatapatia.fragment_historial"
+        android:name="com.example.mensajeriatapatia.FragmentHistorial"
         android:label="@string/menu_historial"
         tools:layout="@layout/fragment_historial" />
 

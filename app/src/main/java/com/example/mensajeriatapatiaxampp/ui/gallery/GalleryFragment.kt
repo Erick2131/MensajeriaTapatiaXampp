@@ -45,6 +45,9 @@ class GalleryFragment : Fragment() {
     private var Cip: ClassIP = ClassIP()
     private var ip: String = Cip.ip
 
+    private val destinatariosMap = mutableMapOf<String, Int>()
+    private val mensajerosMap = mutableMapOf<String, Int>()
+
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -70,11 +73,14 @@ class GalleryFragment : Fragment() {
         // Acción del botón enviar
         enviar.setOnClickListener {
             // Obtener los valores seleccionados de los spinners y otros campos
-            val idDestinatario = destinatario.selectedItemPosition // Ejemplo: obtener el ID del destinatario seleccionado
-            val idMensajero = mensajero.selectedItemPosition // Ejemplo: obtener el ID del mensajero seleccionado
+            val nombreDestinatario = destinatario.selectedItem.toString()
+            val nombreMensajero = mensajero.selectedItem.toString()
+
+            val idDestinatario = destinatariosMap[nombreDestinatario] ?: 0
+            val idMensajero = mensajerosMap[nombreMensajero] ?: 0
             val contenidoMensaje = contenido.text.toString()
             val tipoMensaje = if (rbMensaje.isChecked) "Mensaje" else "Paquete"
-            val fechaActual = LocalDateTime.now().format(DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss"))
+            val fechaActual = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"))
 
             // Insertar el mensaje en la base de datos
             insertarMensaje(idDestinatario, idMensajero, contenidoMensaje, tipoMensaje, fechaActual)
@@ -88,53 +94,48 @@ class GalleryFragment : Fragment() {
     }
 
     fun obtenerDestinatarios() {
-        //val url = "http://192.168.137.76/obtener_destinatarios.php"
         val url = "http://$ip/obtener_destinatarios.php"
         val request = JsonArrayRequest(Request.Method.GET, url, null,
             { response ->
                 // Manejar la respuesta exitosa
                 val listaDestinatarios = mutableListOf<String>()
                 for (i in 0 until response.length()) {
-                    listaDestinatarios.add(response.getString(i))
-                    System.out.println(response.getString(i))
+                    val jsonObject = response.getJSONObject(i)
+                    val nombre = jsonObject.getString("nombre")
+                    val id = jsonObject.getInt("idDestinatario") // Asegúrate de usar la clave correcta
+                    listaDestinatarios.add(nombre)
+                    destinatariosMap[nombre] = id
                 }
-                // Rellenar el spinner con la lista de destinatarios
                 destinatario.adapter = ArrayAdapter(requireContext(), android.R.layout.simple_spinner_item, listaDestinatarios)
             },
             { error ->
-                // Manejar el error
                 Toast.makeText(context, "Error al obtener los destinatarios: ${error.message}", Toast.LENGTH_SHORT).show()
             })
 
-        // Agregar la solicitud a la cola de solicitudes
         Volley.newRequestQueue(requireContext()).add(request)
     }
 
-
     fun obtenerMensajeros() {
-//        val url = "http://192.168.1.4/obtener_mensajeros.php" // URL del script PHP para obtener los mensajeros
         val url = "http://$ip/obtener_mensajeros.php"
         val request = JsonArrayRequest(Request.Method.GET, url, null,
             { response ->
-                // Manejar la respuesta exitosa
                 val listaMensajeros = mutableListOf<String>()
                 for (i in 0 until response.length()) {
-                    //val mensajero = response.getJSONObject(i)
-                    val empresa = response.getString(i)
-                    //listaMensajeros.add(mensajero.getString("empresa"))
+                    val jsonObject = response.getJSONObject(i)
+                    val empresa = jsonObject.getString("empresa")
+                    val id = jsonObject.getInt("idMensajero") // Asegúrate de usar la clave correcta
                     listaMensajeros.add(empresa)
+                    mensajerosMap[empresa] = id
                 }
-                // Rellenar el spinner con la lista de mensajeros
                 mensajero.adapter = ArrayAdapter(requireContext(), android.R.layout.simple_spinner_item, listaMensajeros)
             },
             { error ->
-                // Manejar el error
                 Toast.makeText(context, "Error al obtener los mensajeros: ${error.message}", Toast.LENGTH_SHORT).show()
             })
 
-        // Agregar la solicitud a la cola de solicitudes
         Volley.newRequestQueue(requireContext()).add(request)
     }
+
 
     fun insertarMensaje(idDestinatario: Int, idMensajero: Int, contenido: String, tipo: String, fecha: String) {
         val url = "http://$ip/insertar_mensaje.php"
@@ -142,11 +143,9 @@ class GalleryFragment : Fragment() {
         val stringRequest = object : StringRequest(
             Request.Method.POST, url,
             { response ->
-                // Manejar la respuesta exitosa
                 Toast.makeText(context, "Mensaje insertado correctamente", Toast.LENGTH_SHORT).show()
             },
             { error ->
-                // Manejar el error
                 error.printStackTrace()
                 if (error.networkResponse != null && error.networkResponse.data != null) {
                     val errorMsg = String(error.networkResponse.data)
@@ -167,9 +166,8 @@ class GalleryFragment : Fragment() {
             }
         }
 
-        // Agregar la solicitud a la cola de solicitudes
         Volley.newRequestQueue(requireContext()).add(stringRequest)
     }
-
 }
+
 
