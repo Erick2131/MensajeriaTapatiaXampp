@@ -41,5 +41,10 @@
         android:name="com.example.mensajeriatapatia.fragment_mensajero"
         android:label="@string/menu_mensajero"
         tools:layout="@layout/fragment_mensajero" />
+    <fragment
+        android:id="@+id/nav_sensor"
+        android:name="com.example.mensajeriatapatiaxampp.ui.gallery.SensorFragment"
+        android:label="@string/menu_sensor"
+        tools:layout="@layout/fragment_sensor" />
 
 </navigation>
