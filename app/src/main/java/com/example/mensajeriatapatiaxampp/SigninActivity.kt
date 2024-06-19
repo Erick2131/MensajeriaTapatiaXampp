@@ -49,6 +49,9 @@ class SigninActivity : AppCompatActivity() {
                 Toast.makeText(this, "Por favor, completa todos los campos.", Toast.LENGTH_SHORT).show()
             }
         }
+        backButton.setOnClickListener {
+            finish()
+        }
     }
 
     // Método para insertar un usuario en la base de datos
