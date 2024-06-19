@@ -220,22 +220,6 @@ class GalleryFragment : Fragment() {
             )
         }
     }
-    override fun onRequestPermissionsResult(
-        requestCode: Int,
-        permissions: Array<out String>,
-        grantResults: IntArray
-    ) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
-        if (requestCode == notificationID) {
-            if ((grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED)) {
-                // Permission was granted, create the notification
-                createNotification("Permission Granted", "You can now receive notifications.")
-            } else {
-                // Permission was denied
-                Toast.makeText(context, "Notification permission denied", Toast.LENGTH_SHORT).show()
-            }
-        }
-    }
 }
 
 
