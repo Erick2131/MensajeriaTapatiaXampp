@@ -6,121 +6,123 @@
     android:layout_height="match_parent"
     tools:context=".ui.gallery.GalleryFragment">
 
-    <TextView
-        android:id="@+id/txtTituloMensaje"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="123dp"
-        android:layout_marginTop="44dp"
-        android:layout_marginEnd="122dp"
-        android:text="@string/menu_mensaje"
-        android:textColor="@color/titles"
-        android:textSize="24sp"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
-    <TextView
-        android:id="@+id/txtRellenar"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/campos"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txtTituloMensaje" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="vertical">
 
-    <Spinner
-        android:id="@+id/spnMenDestinatarios"
-        android:layout_width="300dp"
-        android:layout_height="50dp"
-        android:layout_marginStart="55dp"
-        android:layout_marginTop="33dp"
-        android:layout_marginEnd="56dp"
-        android:background="@drawable/custom_edtbox"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txtRellenar" />
+            <TextView
+                android:id="@+id/txtTituloMensaje"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="123dp"
+                android:layout_marginTop="44dp"
+                android:layout_marginEnd="122dp"
+                android:text="@string/menu_mensaje"
+                android:textColor="@color/titles"
+                android:textSize="24sp"
+                android:textStyle="bold" />
 
-    <EditText
-        android:id="@+id/edtMenDireccion"
-        android:layout_width="300dp"
-        android:layout_height="50dp"
-        android:layout_marginStart="55dp"
-        android:layout_marginTop="13dp"
-        android:layout_marginEnd="56dp"
-        android:background="@drawable/edit_text_background"
-        android:ems="10"
-        android:hint="@string/lblTxtDirección"
-        android:inputType="text"
-        android:paddingStart="10dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/spnMenDestinatarios" />
+            <TextView
+                android:id="@+id/txtRellenar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/campos" />
 
-    <Spinner
-        android:id="@+id/spnMenMensajeros"
-        android:layout_width="300dp"
-        android:layout_height="50dp"
-        android:layout_marginStart="55dp"
-        android:layout_marginTop="13dp"
-        android:layout_marginEnd="56dp"
-        android:background="@drawable/custom_edtbox"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/edtMenDireccion" />
+            <Spinner
+                android:id="@+id/spnMenDestinatarios"
+                android:layout_width="300dp"
+                android:layout_height="50dp"
+                android:layout_marginStart="55dp"
+                android:layout_marginTop="33dp"
+                android:layout_marginEnd="56dp"
+                android:background="@drawable/custom_edtbox" />
 
-    <RadioGroup
-        android:id="@+id/rgTipoM"
-        android:layout_width="200dp"
-        android:layout_height="110dp"
-        android:layout_marginTop="20dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/spnMenMensajeros">
+            <EditText
+                android:id="@+id/edtMenDireccion"
+                android:layout_width="300dp"
+                android:layout_height="50dp"
+                android:layout_marginStart="55dp"
+                android:layout_marginTop="13dp"
+                android:layout_marginEnd="56dp"
+                android:background="@drawable/edit_text_background"
+                android:ems="10"
+                android:hint="@string/lblTxtDirección"
+                android:inputType="text"
+                android:paddingStart="10dp" />
 
-        <RadioButton
-            android:id="@+id/rbMensaje"
-            android:layout_width="200dp"
-            android:layout_height="50dp"
-            android:text="@string/rbMensaje" />
+            <Spinner
+                android:id="@+id/spnMenMensajeros"
+                android:layout_width="300dp"
+                android:layout_height="50dp"
+                android:layout_marginStart="55dp"
+                android:layout_marginTop="13dp"
+                android:layout_marginEnd="56dp"
+                android:background="@drawable/custom_edtbox" />
 
-        <RadioButton
-            android:id="@+id/rbPaquete"
-            android:layout_width="200dp"
-            android:layout_height="50dp"
-            android:text="@string/rbPaquete" />
-    </RadioGroup>
+            <RadioGroup
+                android:id="@+id/rgTipoM"
+                android:layout_width="200dp"
+                android:layout_height="110dp"
+                android:layout_marginTop="20dp">
 
-    <EditText
-        android:id="@+id/edtMenContenido"
-        android:layout_width="300dp"
-        android:layout_height="200dp"
-        android:layout_marginStart="55dp"
-        android:layout_marginTop="20dp"
-        android:layout_marginEnd="56dp"
-        android:background="@drawable/custom_edtbox"
-        android:ems="10"
-        android:hint="@string/lblTxtContenido"
-        android:inputType="text"
-        android:paddingStart="10dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/rgTipoM" />
+                <RadioButton
+                    android:id="@+id/rbMensaje"
+                    android:layout_width="200dp"
+                    android:layout_height="50dp"
+                    android:text="@string/rbMensaje" />
 
-    <Button
-        android:id="@+id/btnMenEnviar"
-        android:layout_width="300dp"
-        android:layout_height="50dp"
-        android:layout_marginStart="55dp"
-        android:layout_marginTop="28dp"
-        android:layout_marginEnd="56dp"
-        android:text="@string/lblBtnSend"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/edtMenContenido" />
+                <RadioButton
+                    android:id="@+id/rbPaquete"
+                    android:layout_width="200dp"
+                    android:layout_height="50dp"
+                    android:text="@string/rbPaquete" />
+            </RadioGroup>
+
+            <EditText
+                android:id="@+id/edtMenContenido"
+                android:layout_width="300dp"
+                android:layout_height="200dp"
+                android:layout_marginStart="55dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginEnd="56dp"
+                android:background="@drawable/custom_edtbox"
+                android:ems="10"
+                android:hint="@string/lblTxtContenido"
+                android:inputType="text"
+                android:paddingStart="10dp" />
+
+            <Button
+                android:id="@+id/btnMenFoto"
+                android:layout_width="300dp"
+                android:layout_height="50dp"
+                android:layout_marginTop="20dp"
+                android:text="@string/tomar_foto" />
+
+            <ImageView
+                android:id="@+id/imgMenFoto"
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
+                android:layout_marginTop="20dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                tools:src="@tools:sample/avatars" />
+
+            <Button
+                android:id="@+id/btnMenEnviar"
+                android:layout_width="300dp"
+                android:layout_height="50dp"
+                android:layout_marginStart="55dp"
+                android:layout_marginTop="28dp"
+                android:layout_marginEnd="56dp"
+                android:text="@string/lblBtnSend" />
+
+        </LinearLayout>
+    </ScrollView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
