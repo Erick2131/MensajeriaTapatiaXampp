@@ -50,9 +50,18 @@ dependencies {
     implementation(libs.androidx.navigation.ui.ktx)
     implementation(libs.androidx.activity)
     implementation(libs.volley)
+    implementation(libs.androidx.camera.core)
+    implementation(libs.firebase.crashlytics.buildtools)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
 
     implementation ("com.android.volley:volley-cronet:1.2.1")
+
+    // CameraX core library using camera2 implementation
+    implementation("androidx.camera:camera-camera2:1.2.0")
+    // CameraX Lifecycle library
+    implementation("androidx.camera:camera-lifecycle:1.2.0")
+    // CameraX View class
+    implementation("androidx.camera:camera-view:1.2.0")
 }

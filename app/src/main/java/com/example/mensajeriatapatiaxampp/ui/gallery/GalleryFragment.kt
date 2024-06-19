@@ -1,7 +1,14 @@
 package com.example.mensajeriatapatiaxampp.ui.gallery
 
+import android.app.Activity
+import android.content.ActivityNotFoundException
+import android.content.ContentValues.TAG
+import android.content.Intent
+import android.graphics.Bitmap
 import android.os.Build
 import android.os.Bundle
+import android.provider.MediaStore
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -9,12 +16,19 @@ import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.Button
 import android.widget.EditText
+import android.widget.ImageView
 import android.widget.RadioButton
 import android.widget.RadioGroup
 import android.widget.Spinner
 import android.widget.TextView
 import android.widget.Toast
 import androidx.annotation.RequiresApi
+import androidx.camera.core.CameraSelector
+import androidx.camera.core.ImageCapture
+import androidx.camera.core.Preview
+import androidx.camera.lifecycle.ProcessCameraProvider
+import androidx.camera.view.PreviewView
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.android.volley.Request
@@ -25,7 +39,9 @@ import com.android.volley.toolbox.Volley
 import com.example.mensajeriatapatiaxampp.ClassIP
 import com.example.mensajeriatapatiaxampp.R
 import com.example.mensajeriatapatiaxampp.databinding.FragmentGalleryBinding
+import com.google.firebase.crashlytics.buildtools.reloc.org.apache.commons.codec.binary.Base64
 import org.json.JSONObject
+import java.io.ByteArrayOutputStream
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 
@@ -42,8 +58,11 @@ class GalleryFragment : Fragment() {
     private lateinit var rbPaquete: RadioButton
     private lateinit var contenido: EditText
     private lateinit var enviar: Button
+    private lateinit var foto: Button
+    private lateinit var fotoView: ImageView
     private var Cip: ClassIP = ClassIP()
     private var ip: String = Cip.ip
+    private var photoBitmap: Bitmap? = null
 
     private val destinatariosMap = mutableMapOf<String, Int>()
     private val mensajerosMap = mutableMapOf<String, Int>()
@@ -65,6 +84,8 @@ class GalleryFragment : Fragment() {
         rbPaquete = view.findViewById(R.id.rbPaquete)
         contenido = view.findViewById(R.id.edtMenContenido)
         enviar = view.findViewById(R.id.btnMenEnviar)
+        foto = view.findViewById(R.id.btnMenFoto)
+        fotoView = view.findViewById(R.id.imgMenFoto)
 
         // Obtener destinatarios y mensajeros desde la base de datos
         obtenerDestinatarios()
@@ -85,7 +106,30 @@ class GalleryFragment : Fragment() {
             // Insertar el mensaje en la base de datos
             insertarMensaje(idDestinatario, idMensajero, contenidoMensaje, tipoMensaje, fechaActual)
         }
+
+        foto.setOnClickListener {
+            launchCamera()
+        }
+
         return view
+    }
+
+    private fun launchCamera() {
+        val takePictureIntent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
+        try {
+            startActivityForResult(takePictureIntent, 1)
+        } catch (e: ActivityNotFoundException) {
+            // display error state to the user
+        }
+
+    }
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (requestCode == 1 && resultCode == Activity.RESULT_OK) {
+            val imageBitmap = data?.extras?.get("data") as Bitmap
+            fotoView.setImageBitmap(imageBitmap)
+            photoBitmap = imageBitmap
+        }
     }
 
     override fun onDestroyView() {
@@ -139,6 +183,8 @@ class GalleryFragment : Fragment() {
 
     fun insertarMensaje(idDestinatario: Int, idMensajero: Int, contenido: String, tipo: String, fecha: String) {
         val url = "http://$ip/insertar_mensaje.php"
+        val byteArray = bitmapToByteArray(photoBitmap!!)
+        val encodedImage = Base64.encodeBase64String(byteArray)
 
         val stringRequest = object : StringRequest(
             Request.Method.POST, url,
@@ -162,11 +208,20 @@ class GalleryFragment : Fragment() {
                 params["contenido"] = contenido
                 params["tipo"] = tipo
                 params["fecha"] = fecha
+                params["foto"] = encodedImage
                 return params
             }
+
+
         }
 
         Volley.newRequestQueue(requireContext()).add(stringRequest)
+    }
+
+    fun bitmapToByteArray(bitmap: Bitmap): ByteArray {
+        val stream = ByteArrayOutputStream()
+        bitmap.compress(Bitmap.CompressFormat.PNG, 100, stream)
+        return stream.toByteArray()
     }
 }
 
