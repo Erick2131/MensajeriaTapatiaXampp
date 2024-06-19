@@ -45,6 +45,9 @@
     <string name="menu_historial">Historial</string>
     <string name="menu_ubicacion">Ubicacion</string>
 
+    <string name="menu_sensor">Prueba tu sensor</string>
+
+
     <!-- Fragment Home -->
     <string name="saludo">Hola</string>
     <string name="usuario">Variable!</string>
