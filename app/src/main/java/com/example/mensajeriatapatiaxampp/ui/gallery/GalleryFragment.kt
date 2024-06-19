@@ -14,6 +14,7 @@ import android.content.pm.PackageManager
 import android.os.Build
 import android.os.Bundle
 import android.provider.MediaStore
+import android.util.Base64
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -29,11 +30,6 @@ import android.widget.Spinner
 import android.widget.TextView
 import android.widget.Toast
 import androidx.annotation.RequiresApi
-import androidx.camera.core.CameraSelector
-import androidx.camera.core.ImageCapture
-import androidx.camera.core.Preview
-import androidx.camera.lifecycle.ProcessCameraProvider
-import androidx.camera.view.PreviewView
 import androidx.core.content.ContextCompat
 import androidx.core.app.ActivityCompat
 import androidx.fragment.app.Fragment
@@ -46,7 +42,6 @@ import com.android.volley.toolbox.Volley
 import com.example.mensajeriatapatiaxampp.ClassIP
 import com.example.mensajeriatapatiaxampp.R
 import com.example.mensajeriatapatiaxampp.databinding.FragmentGalleryBinding
-import com.google.firebase.crashlytics.buildtools.reloc.org.apache.commons.codec.binary.Base64
 import org.json.JSONObject
 import java.io.ByteArrayOutputStream
 import java.time.LocalDateTime
@@ -198,7 +193,7 @@ class GalleryFragment : Fragment() {
     fun insertarMensaje(idDestinatario: Int, idMensajero: Int, contenido: String, tipo: String, fecha: String) {
         val url = "http://$ip/insertar_mensaje.php"
         val byteArray = bitmapToByteArray(photoBitmap!!)
-        val encodedImage = Base64.encodeBase64String(byteArray)
+        val encodedImage = Base64.encodeToString(byteArray,Base64.DEFAULT)
 
         val stringRequest = object : StringRequest(
             Request.Method.POST, url,
