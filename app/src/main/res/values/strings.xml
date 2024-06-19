@@ -43,6 +43,7 @@
     <string name="menu_mensajero">Nuevo Mensajero</string>
     <string name="menu_busqueda">Busqueda</string>
     <string name="menu_historial">Historial</string>
+    <string name="menu_sensor">Prueba tu sensor</string>
 
     <!-- Fragment Home -->
     <string name="saludo">Hola</string>
