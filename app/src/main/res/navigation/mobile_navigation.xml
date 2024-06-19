@@ -37,9 +37,20 @@
         tools:layout="@layout/fragment_historial" />
 
     <fragment
+        android:id="@+id/nav_ubicacion"
+        android:name="com.example.mensajeriatapatiaxampp.fragment_ubicacion"
+        android:label="@string/menu_ubicacion"
+        tools:layout="@layout/fragment_ubicacion" />
+
+    <fragment
         android:id="@+id/nav_mensajero"
         android:name="com.example.mensajeriatapatia.fragment_mensajero"
         android:label="@string/menu_mensajero"
         tools:layout="@layout/fragment_mensajero" />
+    <fragment
+        android:id="@+id/nav_sensor"
+        android:name="com.example.mensajeriatapatiaxampp.ui.gallery.SensorFragment"
+        android:label="@string/menu_sensor"
+        tools:layout="@layout/fragment_sensor" />
 
 </navigation>

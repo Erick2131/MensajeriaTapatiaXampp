@@ -1,10 +1,16 @@
 package com.example.mensajeriatapatiaxampp.ui.gallery
 
+
 import android.app.Activity
 import android.content.ActivityNotFoundException
 import android.content.ContentValues.TAG
 import android.content.Intent
 import android.graphics.Bitmap
+import android.Manifest
+import android.app.NotificationChannel
+import android.app.NotificationManager
+import android.content.Context
+import android.content.pm.PackageManager
 import android.os.Build
 import android.os.Bundle
 import android.provider.MediaStore
@@ -29,6 +35,7 @@ import androidx.camera.core.Preview
 import androidx.camera.lifecycle.ProcessCameraProvider
 import androidx.camera.view.PreviewView
 import androidx.core.content.ContextCompat
+import androidx.core.app.ActivityCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.android.volley.Request
@@ -44,11 +51,16 @@ import org.json.JSONObject
 import java.io.ByteArrayOutputStream
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
+import androidx.core.app.NotificationCompat
+import androidx.core.app.NotificationManagerCompat
 
 class GalleryFragment : Fragment() {
 
     private var _binding: FragmentGalleryBinding? = null
     private val binding get() = _binding!!
+
+    private val CHANNEL_ID = "Canal de notificacion"
+    private val notificationID = 100
 
     private lateinit var destinatario: Spinner
     private lateinit var direccion: EditText
@@ -90,6 +102,8 @@ class GalleryFragment : Fragment() {
         // Obtener destinatarios y mensajeros desde la base de datos
         obtenerDestinatarios()
         obtenerMensajeros()
+
+        createNotificationChannel()
 
         // Acción del botón enviar
         enviar.setOnClickListener {
@@ -190,6 +204,7 @@ class GalleryFragment : Fragment() {
             Request.Method.POST, url,
             { response ->
                 Toast.makeText(context, "Mensaje insertado correctamente", Toast.LENGTH_SHORT).show()
+                createNotification("Mensajeria Tapatia", "Su mensaje se ha enviado correctamente")
             },
             { error ->
                 error.printStackTrace()
@@ -217,11 +232,48 @@ class GalleryFragment : Fragment() {
 
         Volley.newRequestQueue(requireContext()).add(stringRequest)
     }
-
     fun bitmapToByteArray(bitmap: Bitmap): ByteArray {
         val stream = ByteArrayOutputStream()
         bitmap.compress(Bitmap.CompressFormat.PNG, 100, stream)
         return stream.toByteArray()
+    }
+    private fun createNotificationChannel() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            val name = "My Channel"
+            val descriptionText = "Channel description"
+            val importance = NotificationManager.IMPORTANCE_DEFAULT
+            val channel = NotificationChannel(CHANNEL_ID, name, importance).apply {
+                description = descriptionText
+            }
+            val notificationManager: NotificationManager =
+                requireContext().getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+            notificationManager.createNotificationChannel(channel)
+        }
+    }
+    private fun createNotification(title: String, content: String) {
+        val builder = NotificationCompat.Builder(requireContext(), CHANNEL_ID)
+            .setSmallIcon(R.drawable.baseline_notifications_24)
+            .setContentTitle(title)
+            .setContentText(content)
+            .setPriority(NotificationCompat.PRIORITY_DEFAULT)
+
+        val notificationManager = NotificationManagerCompat.from(requireContext())
+
+        if (ActivityCompat.checkSelfPermission(
+                requireContext(),
+                Manifest.permission.POST_NOTIFICATIONS
+            ) == PackageManager.PERMISSION_GRANTED
+        ) {
+            // Permission is granted, show the notification
+            notificationManager.notify(notificationID, builder.build())
+        } else {
+            // Permission is not granted, request the permission
+            ActivityCompat.requestPermissions(
+                requireActivity(),
+                arrayOf(Manifest.permission.POST_NOTIFICATIONS),
+                notificationID
+            )
+        }
     }
 }
 
